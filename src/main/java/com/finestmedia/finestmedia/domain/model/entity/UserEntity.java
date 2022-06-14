@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -15,6 +16,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@RepositoryRestResource(exported=false)
 @ToString(of = "id")
 @Table(name = "users")
 public class UserEntity {

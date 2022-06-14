@@ -24,7 +24,8 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-web",
             "org.springframework.boot:spring-boot-starter-data-jpa",
             "org.flywaydb:flyway-core",
-            "org.mapstruct:mapstruct:1.5.1.Final"
+            "org.mapstruct:mapstruct:1.5.1.Final",
+            "io.springfox:springfox-boot-starter:3.0.0",
     )
     compileOnly(
             "org.projectlombok:lombok",
