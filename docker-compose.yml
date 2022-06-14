@@ -1,0 +1,25 @@
+version: '3'
+services:
+  crud-app:
+    image: crud-app:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      POSTGRES_URL: jdbc:postgresql://db:5432/finestmedia
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 8080:8080
+
+  db:
+    image: postgres:13.3-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: finestmedia
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432

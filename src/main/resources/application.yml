@@ -5,9 +5,9 @@ spring:
   flyway:
     enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5433/finestmedia
-    username: postgres
-    password: password
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/finestmedia}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false
@@ -19,6 +19,3 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
-        types:
-          print:
-            banner: false
