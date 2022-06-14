@@ -39,7 +39,8 @@ dependencies {
             "org.mapstruct:mapstruct-processor:1.5.1.Final"
     )
     testImplementation(
-            "org.springframework.boot:spring-boot-starter-test"
+            "org.springframework.boot:spring-boot-starter-test",
+            "org.testcontainers:postgresql:1.17.2",
     )
 }
 

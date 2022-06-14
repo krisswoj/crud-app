@@ -1,9 +1,11 @@
 package com.finestmedia.finestmedia.service;
 
 import com.finestmedia.finestmedia.domain.model.dto.UserCreationDto;
+import com.finestmedia.finestmedia.domain.model.dto.UserDto;
 import com.finestmedia.finestmedia.domain.model.entity.UserEntity;
 import com.finestmedia.finestmedia.mapper.UserMapper;
 import com.finestmedia.finestmedia.repository.UserRepository;
+import com.finestmedia.finestmedia.service.exception.NoExistsUserException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,6 +33,9 @@ class UserServiceTest {
 
     @Mock
     private UserCreationDto userCreationDto;
+
+    @Mock
+    private UserDto userDto;
 
     @Mock
     private UserEntity userEntityOne, userEntityTwo, userEntityThree;
@@ -59,4 +65,39 @@ class UserServiceTest {
         verify(userMapper).updateUserEntityFromUserCreationDto(eq(userCreationDto), any(UserEntity.class));
     }
 
+    @Test
+    void shouldDeleteUserForGivenId(){
+        when(userRepository.existsById(1L)).thenReturn(true);
+
+        userService.delete(1L);
+
+        verify(userRepository).deleteById(1L);
+    }
+
+    @Test
+    void shouldThrowNoExistsUserExceptionForTryingToDeleteNonExistentUser(){
+        when(userRepository.existsById(1L)).thenReturn(false);
+
+        assertThrows(NoExistsUserException.class, () -> userService.delete(1L));
+    }
+
+    @Test
+    void shouldReturnUpdatedUserEntity(){
+        when(userDto.getId()).thenReturn(1L);
+        when(userRepository.findById(1L)).thenReturn(Optional.of(userEntityOne));
+        when(userRepository.save(userEntityOne)).thenReturn(userEntityTwo);
+
+        UserEntity result = userService.update(userDto);
+
+        assertEquals(userEntityTwo, result);
+        verify(userMapper).updateUserEntityFromUserDto(userDto, userEntityOne);
+    }
+
+    @Test
+    void shouldThrowNoExistsUserExceptionForTryingToUpdateNonExistentUser(){
+        when(userDto.getId()).thenReturn(1L);
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(NoExistsUserException.class, () -> userService.update(userDto));
+    }
 }
