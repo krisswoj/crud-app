@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users
     email       VARCHAR(255)    NOT NULL,
     avatar_url  VARCHAR(255)    NOT NULL,
     created_at  TIMESTAMP       NOT NULL,
-    modified_at TIMESTAMP
+    modified_at TIMESTAMP       NOT NULL
 );
 
 INSERT INTO public.users (id, name, surname, email, avatar_url, created_at, modified_at) VALUES (1, 'jan', 'jankowski', 'jan.jankowski@wp.pl', 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/45.png', '2022-06-14 23:14:18.219015', '2022-06-14 23:14:18.219015');

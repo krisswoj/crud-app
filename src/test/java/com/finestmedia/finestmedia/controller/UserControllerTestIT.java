@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finestmedia.finestmedia.AbstractIntegrationTest;
 import com.finestmedia.finestmedia.TestUserRepository;
 import com.finestmedia.finestmedia.domain.model.entity.UserEntity;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +37,8 @@ class UserControllerTestIT extends AbstractIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        testUserRepository.saveAll(createDummyUserEntities());
-    }
-
-    @AfterEach
-    void cleanUp() {
         testUserRepository.deleteAll();
+        testUserRepository.saveAll(createDummyUserEntities());
     }
 
     @Test
@@ -166,7 +161,6 @@ class UserControllerTestIT extends AbstractIntegrationTest {
 
             for (int i = 1; i <= 3; i++) {
                 var userEntity = UserEntity.builder()
-                        .id((long) i)
                         .name("name-" + i)
                         .surname("surname-" + i)
                         .email("email-" + i)
