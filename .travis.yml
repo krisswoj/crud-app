@@ -1,5 +1,17 @@
 language: java
 jdk:
   - openjdk11
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t krisswojpl/crud-app:v1 -f  ./Dockerfile .
 script:
-  - ./gradlew clean build
+  - docker run krisswojpl/crud-app:v1 ./gradlew test
+
+deploy:
+  - provider: script
+    script: bash ./deploy.sh
+    on:
+      branch: main

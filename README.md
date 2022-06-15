@@ -1,19 +1,18 @@
 # Simple CRUD Application
 In this application you can do all CRUD operations by restApi or Angular GUI.
 
-**Used technologies**: Java, Spring Boot, Angular, PostgreSQL, Docker, Swagger
+**Used technologies**: Java, Spring Boot, Angular, PostgreSQL (with Flyway), Heroku, Travis-CI (Partial CI/CD), Docker, DockerHub, Swagger. Written unit and integration (Checks CRUD with containerTest DB) tests.
 
-## How to run it
+[![Build Status](https://app.travis-ci.com/krisswoj/crud-app.svg?branch=main)](https://app.travis-ci.com/krisswoj/crud-app)
 
-**Docker**: To run locally, execute the following command:
+## Swagger
+https://krisswoj-crud-app-main.herokuapp.com/swagger-ui/#/
+
+## How to run
+
+**Docker**: Execute the following command:
 
 ```bash
 docker-compose up --build
 ```
-
-## Default url
-http://localhost:8080/all
-
-## Swagger
-http://localhost:8080/swagger-ui/#/
 

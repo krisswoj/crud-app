@@ -2,17 +2,12 @@ plugins {
     id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'idea'
 }
 
 group = 'com.finestmedia'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
 
 repositories {
     mavenCentral()
@@ -49,6 +44,45 @@ dependencies {
     )
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+sourceSets {
+    integration {
+        compileClasspath += sourceSets.main.output
+        compileClasspath += sourceSets.test.output
+        runtimeClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.test.output
+    }
+}
+
+configurations {
+    compileOnly.extendsFrom annotationProcessor
+
+    integrationImplementation.extendsFrom implementation, testImplementation
+    integrationRuntimeOnly.extendsFrom runtimeOnly
+    integrationAnnotationProcessor.extendsFrom annotationProcessor
+    integrationCompileOnly.extendsFrom compileOnly
+}
+
+idea {
+    module {
+        testSourceDirs += sourceSets.integration.allSource.srcDirs
+    }
+}
+
+test {
+    useJUnitPlatform { JUnitPlatformOptions options ->
+        options.excludeTags 'integration'
+    }
+}
+
+task integrationTests(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    useJUnitPlatform { JUnitPlatformOptions options ->
+        options.includeTags 'integration'
+    }
+
+    testClassesDirs = sourceSets.integration.output.classesDirs
+    classpath = sourceSets.integration.runtimeClasspath
+    shouldRunAfter test
 }
