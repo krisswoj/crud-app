@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2>{{pageTitle}}</h2>
+        </div>
+        <div class="col-sm-6">
+          <a [routerLink]="['../']" class="btn btn-secondary">
+            <span>Back</span></a>
+        </div>
+      </div>
+    </div>
+
+    <form #editForm="ngForm" (ngSubmit)="updateUserData()">
+      <div *ngIf="notification.type" class="alert alert-{{notification.type}}">{{ notification.message }}</div>
+      <input *ngIf="userData.id" type="hidden" id="id" name="id" [(ngModel)]="userData.id">
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" [(ngModel)]="userData.name" id="name" name="name" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="surname">Surname</label>
+        <input type="text" [(ngModel)]="userData.surname" id="surname" name="surname" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="text" [(ngModel)]="userData.email" id="email" name="email" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="avatarUrl">Avatar url</label>
+        <input type="text" [(ngModel)]="userData.avatarUrl" id="avatarUrl" name="avatarUrl" class="form-control">
+      </div>
+
+      <div class="btn-group mt-3" role="group">
+        <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

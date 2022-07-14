@@ -107,15 +107,15 @@ class UserControllerTestIT extends AbstractIntegrationTest {
 
         assertEquals(3, testUserRepository.count());
 
-        mockMvc.perform(patch("/update")
+        mockMvc.perform(put("/update")
                         .contentType(MediaType.APPLICATION_JSON).content(dummyUserDtoWithInsertedId))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(patch("/update")
+        mockMvc.perform(put("/update")
                         .contentType(MediaType.APPLICATION_JSON).content(dummyUserDtoWithInsertedId))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(patch("/update")
+        mockMvc.perform(put("/update")
                         .contentType(MediaType.APPLICATION_JSON).content(dummyUserDtoWithInsertedId))
                 .andExpect(status().isOk());
 
@@ -128,7 +128,7 @@ class UserControllerTestIT extends AbstractIntegrationTest {
 
         String dummyUserDtoWithInsertedId = DUMMY_USER_DTO_DATA.replace("id-to-replace", userEntityWithName1.getId().toString());
 
-        MvcResult result = mockMvc.perform(patch("/update")
+        MvcResult result = mockMvc.perform(put("/update")
                         .contentType(MediaType.APPLICATION_JSON).content(dummyUserDtoWithInsertedId))
                 .andExpect(status().isOk())
                 .andReturn();

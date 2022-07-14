@@ -29,7 +29,7 @@ public class UserController {
         return new ResponseEntity<>(userService.save(userCreationDto), HttpStatus.CREATED);
     }
 
-    @PatchMapping(path = "/update", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/update", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<UserEntity> update(@RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.update(userDto));
     }
