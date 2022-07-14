@@ -5,14 +5,16 @@ In this application you can do all CRUD operations by restApi or Angular GUI.
 
 [![Build Status](https://app.travis-ci.com/krisswoj/crud-app.svg?branch=main)](https://app.travis-ci.com/krisswoj/crud-app)
 
-## Swagger
+## API (Swagger)
 https://krisswoj-crud-app-main.herokuapp.com/swagger-ui/#/
 
 ## How to run
 
-**Docker**: Execute the following command:
+To run locally you have to execute following command:
+
 
 ```bash
 docker-compose up --build
 ```
 
+The backend application will launch at http://localhost:8080/ and the frontend at http://localhost:4200/

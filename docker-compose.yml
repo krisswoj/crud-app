@@ -1,7 +1,6 @@
 version: '3'
 services:
   crud-app:
-    image: krisswojpl/crud-app:v1
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,7 +12,6 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - 8080:8080
-
   db:
     image: postgres:13.3-alpine
     restart: always
@@ -23,3 +21,11 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - 5432:5432
+  front-app:
+    build:
+      context: .
+      dockerfile: src/main/frontend/crud-app-front/Dockerfile
+    depends_on:
+      - crud-app
+    ports:
+      - 4200:80
